@@ -1,0 +1,30 @@
+// proto3 문법 사용 (default = 2)
+syntax = "proto3";
+
+// true : 컴파일러는 각 최상위 메시지, 열거형, 서비스 정의에 대해 별도의 java 파일을 생성한다.
+// false : 컴파일러가 해당 .proto 파일을 위한 하나의 java 파일만 생성한다. (하나의 래퍼 클래스에 모두 중첩되어 저장된다)
+option java_multiple_files = true;
+
+// 패키지 경로 설정
+option java_package = "io.grpc.examples.helloworld";
+
+// 래퍼 클래스 이름 설정
+// 설정하지 않았을 경우 해당 proto 파일의 이름이 camelCase로 변환되어 지정된다.
+option java_outer_classname = "HelloWorldProto";
+
+package helloworld;
+
+// Greeter라는 서비스 정의
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
+}
+
+// 메시지 정의
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}
